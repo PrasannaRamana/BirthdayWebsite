@@ -1,0 +1,299 @@
+/* 
+================================================================================
+PREMIUM BIRTHDAY SURPRISE WEBSITE - RESPONSIVE STYLING
+Author: Senior Full Stack Developer & Frontend Architect
+Description: Fluid typography and layouts, adaptive navigation, and customized 
+             media queries for a consistent, seamless experience across devices.
+================================================================================
+*/
+
+/* -----------------------------------------------------------------------------
+   DESKTOP LARGER SCREENS (1440px and up)
+----------------------------------------------------------------------------- */
+@media screen and (min-width: 90em) {
+    html {
+        font-size: 18px; /* Slightly larger base font for high-res large displays */
+    }
+
+    .container-premium {
+        max-width: 1400px;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   LAPTOPS & SMALLER DESKTOPS (1024px to 1200px)
+----------------------------------------------------------------------------- */
+@media screen and (max-width: 75em) {
+    .global-nav {
+        padding: 2rem;
+    }
+
+    .nav-dots {
+        right: 2rem;
+    }
+
+    .nav-arrows {
+        bottom: 1.5rem;
+        right: 2rem;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   TABLETS (768px to 1023px)
+----------------------------------------------------------------------------- */
+@media screen and (max-width: 64em) {
+    html {
+        font-size: 15px; /* Scale down for tablet viewports */
+    }
+
+    .container-premium {
+        max-width: 90%;
+        padding: 0 1.5rem;
+    }
+
+    /* Adjust Global Navigation for Portrait Tablets */
+    .global-nav {
+        padding: 1.5rem;
+    }
+
+    .nav-dots {
+        right: 1.5rem;
+    }
+
+    .nav-arrows {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .audio-control-container {
+        top: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .memory-layout,
+    .wish-stage {
+        width: min(900px, calc(100% - 5rem));
+        gap: 2rem;
+    }
+
+    .memory-grid {
+        height: min(62vh, 520px);
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   MOBILE DEVICES (767px and below)
+----------------------------------------------------------------------------- */
+@media screen and (max-width: 48em) {
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        /* Support mobile scrolling flow */
+        user-select: auto;
+    }
+
+    /* Shift Dots to Horizontal Bottom Center on Mobile */
+    .global-nav {
+        flex-direction: column-reverse; /* Swap layout for convenient controls */
+        padding: 1rem;
+    }
+
+    .nav-dots {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        right: auto;
+        top: auto;
+        transform: translateX(-50%);
+        flex-direction: row; /* Horizontal layout for dots on mobile */
+        gap: 1rem;
+        z-index: 105;
+    }
+
+    /* Shift Arrow Controls to Side/Corners of the Bottom or make them compact */
+    .nav-arrows {
+        width: 100%;
+        position: absolute;
+        bottom: 1rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        pointer-events: none; /* Let empty space pass through click events */
+    }
+
+    .nav-arrow-btn {
+        pointer-events: auto; /* Buttons are clickable */
+        width: 44px; /* Slightly smaller, more tap-friendly minimum size */
+        height: 44px;
+        background: rgba(20, 20, 26, 0.7); /* Slightly higher contrast backdrop on mobile */
+    }
+
+    /* Compact Audio Control for Mobile */
+    .audio-control-container {
+        top: 1rem;
+        right: 1.5rem;
+        left: auto;
+    }
+
+    .audio-toggle-btn {
+        padding: 0.5rem 1rem;
+    }
+
+    .audio-toggle-btn .btn-text {
+        display: none; /* Hide 'PLAY SOUNDTRACK' text on small mobile, keep visualizer bars */
+    }
+
+    /* Preloader layout adjustments */
+    .preloader-title {
+        font-size: 1.5rem;
+        letter-spacing: 0.25rem;
+    }
+
+    .app-section {
+        padding: 5.5rem 1.25rem 6.5rem;
+        justify-content: flex-start;
+        overflow: hidden;
+    }
+
+    .hero-photo-wrap {
+        position: relative;
+        inset: auto;
+        width: min(54vw, 220px);
+        margin: 0 auto 1.25rem;
+        opacity: 0.52;
+        transform: rotate(-3deg);
+    }
+
+    .hero-title {
+        font-size: clamp(2.6rem, 15vw, 4.6rem);
+    }
+
+    .hero-copy {
+        margin: 1rem auto 1.35rem;
+        max-width: 32rem;
+    }
+
+    .memory-layout,
+    .wish-stage {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 1.35rem;
+    }
+
+    .memory-copy,
+    .wish-panel {
+        max-width: none;
+    }
+
+    .memory-copy .section-title,
+    .wish-panel .section-title {
+        font-size: clamp(2rem, 10vw, 3.3rem);
+    }
+
+    .memory-grid {
+        grid-template-columns: repeat(4, minmax(150px, 1fr));
+        grid-template-rows: 1fr;
+        height: min(42vh, 330px);
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        scroll-snap-type: x mandatory;
+    }
+
+    .memory-card,
+    .memory-card.featured {
+        grid-row: auto;
+        min-width: 150px;
+        scroll-snap-align: center;
+    }
+
+    .wish-photo-stack {
+        min-height: 38vh;
+        order: 2;
+    }
+
+    .wish-panel {
+        padding: 1.5rem;
+    }
+
+    .wish-photo {
+        width: 36%;
+        height: 92%;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   TINY MOBILES / LOW-RES SCREENS (375px and below)
+----------------------------------------------------------------------------- */
+@media screen and (max-width: 23.5em) {
+    html {
+        font-size: 13px;
+    }
+
+    .nav-dots {
+        gap: 0.75rem;
+    }
+
+    .nav-arrow-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .primary-cta {
+        min-width: 170px;
+        font-size: 0.72rem;
+    }
+
+    .wish-panel {
+        padding: 1.25rem;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   LANDSCAPE MOBILE ADJUSTMENTS
+----------------------------------------------------------------------------- */
+@media screen and (max-height: 26em) and (orientation: landscape) {
+    .global-nav {
+        padding: 0.75rem;
+    }
+
+    .nav-dots {
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        flex-direction: column;
+        bottom: auto;
+        left: auto;
+    }
+
+    .nav-arrows {
+        display: none; /* Hide navigation arrows in low-height landscapes to save viewport height */
+    }
+
+    .audio-control-container {
+        top: 0.75rem;
+        right: 1rem;
+    }
+
+    .app-section {
+        padding-top: 3.5rem;
+        padding-bottom: 3rem;
+    }
+
+    .hero-photo-wrap,
+    .wish-photo-stack {
+        display: none;
+    }
+
+    .memory-layout,
+    .wish-stage {
+        gap: 1rem;
+    }
+
+    .memory-grid {
+        height: 38vh;
+    }
+}
