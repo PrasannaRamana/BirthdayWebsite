@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0B1026" />
+  <title>Happy Birthday, Bhavana ❤</title>
+  <meta name="description" content="A luxury, interactive birthday surprise crafted only for Bhavana." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <div class="ambient-sky" aria-hidden="true">
+    <canvas id="particleCanvas"></canvas>
+    <div class="moon" aria-hidden="true"></div>
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+  </div>
+
+  <button id="musicToggle" class="music-toggle" aria-label="Toggle background music" hidden>
+    <span class="music-toggle__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M9 18V5l12-2v13"></path>
+        <circle cx="6" cy="18" r="3"></circle>
+        <circle cx="18" cy="16" r="3"></circle>
+      </svg>
+    </span>
+    <span class="music-toggle__label">Music</span>
+  </button>
+
+  <nav class="progress-rail" aria-label="Journey progress">
+    <ol id="progressDots"></ol>
+  </nav>
+
+  <main id="app">
+    <!-- 1. LOADING -->
+    <section class="screen screen--loading is-active" id="screen-loading" data-screen="loading">
+      <div class="loading-stage">
+        <div class="loading-hearts" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <h1 class="loading-title">Preparing something special<span class="dots"><i>.</i><i>.</i><i>.</i></span></h1>
+        <p class="loading-sub">A little universe is being built for <em>Bhavana</em></p>
+        <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="loading-bar__fill" id="loadingBarFill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. LANDING -->
+    <section class="screen" id="screen-landing" data-screen="landing" hidden>
+      <div class="landing-stage" data-parallax-root>
+        <div class="landing-glow" aria-hidden="true"></div>
+        <p class="eyebrow" data-parallax="6">A surprise written only for you</p>
+        <h1 class="landing-title" data-parallax="14">Happy Birthday<br /><span class="landing-name">Bhavana</span><span
+            class="landing-heart" aria-hidden="true">❤</span></h1>
+        <p class="landing-sub" data-parallax="4">I created something special only for you. Walk with me through it.</p>
+        <button class="btn-luxe" id="btnBeginJourney"><span class="btn-luxe__inner">Begin the Journey</span><span
+            class="btn-luxe__shine" aria-hidden="true"></span></button>
+        <div class="landing-floaters" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- 3. COUNTDOWN -->
+    <section class="screen" id="screen-countdown" data-screen="countdown" hidden>
+      <div class="countdown-stage">
+        <p class="eyebrow">Counting the moments until</p>
+        <h2 class="screen-title">Your day arrives</h2>
+        <div class="countdown-grid" id="countdownGrid">
+          <div class="cd-cell">
+            <div class="cd-num" data-cd="days">000</div>
+            <div class="cd-label">Days</div>
+          </div>
+          <div class="cd-cell">
+            <div class="cd-num" data-cd="hours">00</div>
+            <div class="cd-label">Hours</div>
+          </div>
+          <div class="cd-cell">
+            <div class="cd-num" data-cd="minutes">00</div>
+            <div class="cd-label">Minutes</div>
+          </div>
+          <div class="cd-cell">
+            <div class="cd-num" data-cd="seconds">00</div>
+            <div class="cd-label">Seconds</div>
+          </div>
+        </div>
+        <p class="countdown-meta" id="countdownMeta">02 July 2026 · A day the world celebrates you.</p>
+        <button class="btn-ghost" data-next>Continue the journey →</button>
+      </div>
+    </section>
+
+    <!-- 4. CELEBRATION -->
+    <section class="screen" id="screen-celebration" data-screen="celebration" hidden>
+      <canvas class="fx-canvas" id="celebrationFxCanvas" aria-hidden="true"></canvas>
+      <div class="celebration-stage">
+        <p class="eyebrow">It's the day.</p>
+        <h2 class="screen-title gradient-title">Happy Birthday, Bhavana <span aria-hidden="true">❤</span></h2>
+        <p class="screen-sub">Fireworks, confetti and a quiet promise – all for you.</p>
+        <div class="celebration-actions">
+          <button class="btn-luxe" id="btnFire"><span class="btn-luxe__inner">Light the sky</span></button>
+          <button class="btn-ghost" data-next>Open your letters →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ENVELOPES -->
+    <section class="screen" id="screen-envelopes" data-screen="envelopes" hidden>
+      <div class="section-head">
+        <p class="eyebrow">Eight letters · written quietly</p>
+        <h2 class="screen-title">Open them, one by one</h2>
+        <div class="progress-chip"><span id="envProgress">0</span> / 8 opened</div>
+      </div>
+      <div class="envelopes-stage" id="envelopesStage"></div>
+      <div class="section-foot">
+        <button class="btn-ghost" id="btnEnvelopesNext" data-next disabled>Continue →</button>
+      </div>
+    </section>
+
+    <!-- 6. GIFTS -->
+    <section class="screen" id="screen-gifts" data-screen="gifts" hidden>
+      <div class="section-head">
+        <p class="eyebrow">Six small gifts</p>
+        <h2 class="screen-title">Choose one. Or all.</h2>
+        <p class="screen-sub">Each box opens only once – just like the best surprises.</p>
+      </div>
+      <div class="gifts-grid" id="giftsGrid"></div>
+      <div class="section-foot">
+        <button class="btn-ghost" data-next>To the stars →</button>
+      </div>
+    </section>
+
+    <!-- 7. STARS -->
+    <section class="screen" id="screen-stars" data-screen="stars" hidden>
+      <div class="section-head">
+        <p class="eyebrow">A sky of secrets</p>
+        <h2 class="screen-title">Catch the stars</h2>
+        <p class="screen-sub">Tap each glowing star to hear what it whispers.</p>
+        <div class="progress-chip"><span id="starProgress">0</span> / <span id="starTotal">12</span> collected</div>
+      </div>
+      <div class="stars-stage" id="starsStage"></div>
+      <div class="star-whisper" id="starWhisper" hidden></div>
+      <div class="section-foot">
+        <button class="btn-ghost" id="btnStarsNext" data-next disabled>15 reasons →</button>
+      </div>
+    </section>
+
+    <!-- 8. REASONS -->
+    <section class="screen" id="screen-reasons" data-screen="reasons" hidden>
+      <div class="section-head">
+        <p class="eyebrow">15 reasons</p>
+        <h2 class="screen-title">Why you're amazing</h2>
+        <p class="screen-sub">Press the card. A new reason every time, without repeats.</p>
+      </div>
+      <div class="reasons-stage">
+        <div class="reason-card" id="reasonCard">
+          <span class="reason-card__num" id="reasonNum">·</span>
+          <p class="reason-card__text" id="reasonText">Press to reveal the first reason.</p>
+        </div>
+        <button class="btn-luxe" id="btnNextReason"><span class="btn-luxe__inner">Reveal a reason</span></button>
+        <p class="reasons-meta" id="reasonsMeta">0 / 15 revealed</p>
+      </div>
+      <div class="section-foot">
+        <button class="btn-ghost" data-next>Play a little game →</button>
+      </div>
+    </section>
+
+    <!-- 9. GAME -->
+    <section class="screen" id="screen-game" data-screen="game" hidden>
+      <div class="section-head">
+        <p class="eyebrow">A tiny game</p>
+        <h2 class="screen-title">Catch the hearts</h2>
+        <p class="screen-sub">Catch <strong>25 hearts</strong> in 45 seconds to unlock the final surprise.</p>
+      </div>
+      <div class="game-hud">
+        <div class="hud-cell"><span class="hud-label">Score</span><span class="hud-val" id="gameScore">0</span></div>
+        <div class="hud-cell"><span class="hud-label">Lives</span><span class="hud-val" id="gameLives">3</span></div>
+        <div class="hud-cell"><span class="hud-label">Time</span><span class="hud-val" id="gameTime">45</span></div>
+      </div>
+      <div class="game-stage" id="gameStage">
+        <div class="game-overlay" id="gameOverlay">
+          <h3 id="gameOverlayTitle">Are you ready?</h3>
+          <p id="gameOverlayText">Catch the falling hearts. Miss too many and lose a life.</p>
+          <button class="btn-luxe" id="btnGameStart"><span class="btn-luxe__inner">Start</span></button>
+        </div>
+      </div>
+      <div class="section-foot">
+        <button class="btn-ghost" id="btnGameNext" data-next disabled>Final surprise →</button>
+      </div>
+    </section>
+
+    <!-- 10. FINAL -->
+    <section class="screen" id="screen-final" data-screen="final" hidden>
+      <canvas class="fx-canvas" id="finalFxCanvas" aria-hidden="true"></canvas>
+      <div class="final-stage">
+        <h2 class="screen-title gradient-title final-title">Happy Birthday, Bhavana <span aria-hidden="true">❤</span>
+        </h2>
+        <p class="final-msg" id="finalMessage">May your life always be filled with happiness, success, laughter and
+          endless smiles. Thank you for being such an amazing person. This little universe was built especially for you,
+          with lots of love.</p>
+        <div class="cake-wrap">
+          <div class="cake" id="cake">
+            <div class="cake__top"></div>
+            <div class="cake__middle"></div>
+            <div class="cake__bottom"></div>
+            <div class="cake__candles" id="cakeCandles">
+              <span class="candle"><span class="flame"></span></span>
+              <span class="candle"><span class="flame"></span></span>
+              <span class="candle"><span class="flame"></span></span>
+              <span class="candle"><span class="flame"></span></span>
+              <span class="candle"><span class="flame"></span></span>
+            </div>
+          </div>
+          <button class="btn-luxe" id="btnBlowCandles"><span class="btn-luxe__inner">🕯️ Blow the
+              candles</span></button>
+        </div>
+        <button class="btn-ghost" id="btnRestart">↺ Restart the journey</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Gallery invite popup (after blowing candles) -->
+  <div class="candle-popup" id="candlePopup" hidden>
+    <div class="candle-popup__card" role="dialog" aria-modal="true" aria-labelledby="candlePopupTitle">
+      <div class="candle-popup__sparkle" aria-hidden="true">✨</div>
+      <h3 id="candlePopupTitle" class="candle-popup__title">Make a wish, Bhavana!</h3>
+      <p class="candle-popup__text">Your candles are out — now open a little album of memories made just for you.</p>
+      <button class="btn-luxe" id="btnViewGallery"><span class="btn-luxe__inner">📸 View Photo Gallery ❤</span></button>
+      <button class="candle-popup__skip" id="candlePopupClose">Maybe later</button>
+    </div>
+  </div>
+
+  <!-- Full-screen photo gallery modal -->
+  <div class="gallery-modal" id="galleryModal" hidden>
+    <div class="gallery-modal__inner" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle">
+      <button class="gallery-modal__close" id="galleryModalClose" aria-label="Close gallery">×</button>
+      <h3 id="galleryModalTitle" class="gallery-modal__title">Our memories ❤</h3>
+      <div class="final-gallery" id="finalGallery"></div>
+    </div>
+  </div>
+
+  <div class="letter-modal" id="letterModal" hidden>
+    <div class="letter-modal__paper" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+      <button class="letter-modal__close" id="letterClose" aria-label="Close letter">×</button>
+      <p class="letter-modal__eyebrow">A letter for Bhavana</p>
+      <h3 id="letterTitle" class="letter-modal__title">·</h3>
+      <p id="letterBody" class="letter-modal__body">·</p>
+      <p class="letter-modal__sign">— Yours, always</p>
+    </div>
+  </div>
+
+  <script src="js/script.js" defer></script>
+</body>
+
+</html>
