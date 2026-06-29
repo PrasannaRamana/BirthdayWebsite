@@ -728,6 +728,22 @@ body.modal-open main#app { pointer-events: none; }
   .moon { width: 140px; height: 140px; top: 4%; right: 4%; }
   .progress-rail { left: 12px; }
 }
+
+/* ============ PASSWORD SCREEN ============ */
+.password-stage { text-align: center; max-width: 480px; margin: 0 auto; display: grid; gap: var(--space-5); justify-items: center; }
+.password-sub { font-family: var(--f-serif); font-style: italic; font-size: clamp(1rem, 1.3vw, 1.2rem); color: var(--text-soft); max-width: 520px; margin: 0 auto; line-height: 1.5; text-align: center; }
+.password-form { width: 100%; max-width: 360px; display: grid; gap: var(--space-4); justify-items: center; }
+.password-input-group { position: relative; width: 100%; max-width: 280px; }
+.password-input { width: 100%; padding: 14px 44px 14px 18px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); background: var(--glass); color: var(--cream-50); font-family: var(--f-sans); font-size: 1rem; letter-spacing: 0.08em; text-align: center; backdrop-filter: blur(14px); transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out); box-shadow: var(--shadow-soft); }
+.password-input::placeholder { color: var(--text-mute); }
+.password-input:focus { outline: none; border-color: var(--gold-400); background: var(--glass-strong); box-shadow: var(--shadow-soft), 0 0 16px rgba(233, 196, 106, 0.25); }
+.password-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border: none; border-radius: 50%; background: transparent; color: var(--gold-400); font-size: 1.1rem; cursor: pointer; display: grid; place-items: center; transition: transform 0.2s; }
+.password-toggle:hover { transform: translateY(-50%) scale(1.1); }
+.password-toggle:active { transform: translateY(-50%) scale(0.95); }
+.password-error { width: 100%; max-width: 280px; padding: 12px 14px; border-radius: var(--radius-sm); background: rgba(246, 96, 139, 0.15); border: 1px solid rgba(246, 96, 139, 0.35); color: var(--pink-300); font-family: var(--f-sans); font-size: 0.9rem; line-height: 1.4; animation: fadeInUp 0.35s var(--ease-out); }
+.password-error[hidden] { display: none; }
+.password-hint { font-family: var(--f-sans); font-size: 0.85rem; color: var(--text-mute); margin: 0; letter-spacing: 0.04em; }
+
 @media (max-width: 720px) {
   .screen { padding: clamp(52px, 8vh, 64px) 14px clamp(8px, 1.2vh, 12px); gap: clamp(4px, 1vh, 8px); }
   .envelopes-stage { grid-template-columns: repeat(2, 1fr); gap: 12px; }

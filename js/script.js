@@ -342,11 +342,87 @@ BD.nav = (function () {
   const target = new Date(cfg.birthday).getTime();
   const screen = document.getElementById("screen-countdown");
   const meta = document.getElementById("countdownMeta");
+  const nextBtn = document.getElementById("btnCountdownNext");
   const dayDate = new Date(cfg.birthday).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
   if (meta) meta.textContent = `${dayDate} · A day the world celebrates you.`;
-  function update() { const now = Date.now(); let diff = target - now; if (diff <= 0) { BD.qsa("[data-cd]", screen).forEach((el) => (el.textContent = "00")); if (cfg.forceCelebrationIfPassed) { clearInterval(timer); if (BD.nav.current() === "countdown") BD.nav.goTo("celebration"); } return; } const days = Math.floor(diff / 86400000); diff -= days * 86400000; const hours = Math.floor(diff / 3600000); diff -= hours * 3600000; const minutes = Math.floor(diff / 60000); diff -= minutes * 60000; const seconds = Math.floor(diff / 1000); setCell("days", days); setCell("hours", hours); setCell("minutes", minutes); setCell("seconds", seconds); }
+  function update() { const now = Date.now(); let diff = target - now; if (diff <= 0) { BD.qsa("[data-cd]", screen).forEach((el) => (el.textContent = "00")); if (nextBtn) nextBtn.disabled = false; if (cfg.forceCelebrationIfPassed) { clearInterval(timer); if (BD.nav.current() === "countdown") BD.nav.goTo("celebration"); } return; } const days = Math.floor(diff / 86400000); diff -= days * 86400000; const hours = Math.floor(diff / 3600000); diff -= hours * 3600000; const minutes = Math.floor(diff / 60000); diff -= minutes * 60000; const seconds = Math.floor(diff / 1000); setCell("days", days); setCell("hours", hours); setCell("minutes", minutes); setCell("seconds", seconds); }
   function setCell(key, val) { const el = screen.querySelector(`[data-cd="${key}"]`); if (el) el.textContent = BD.pad(val, key === "days" ? 3 : 2); }
   update(); const timer = setInterval(update, 1000);
+})();
+
+/* ============ PASSWORD VERIFICATION ============ */
+(function () {
+  const cfg = window.BIRTHDAY_CONFIG;
+  const passwordInput = document.getElementById("passwordInput");
+  const toggleBtn = document.getElementById("togglePasswordVisibility");
+  const submitBtn = document.getElementById("btnSubmitPassword");
+  const errorEl = document.getElementById("passwordError");
+  const screen = document.getElementById("screen-password");
+  
+  // Extract birthday in DD-MM-YYYY format
+  const birthDate = new Date(cfg.birthday);
+  const correctPassword = BD.pad(birthDate.getDate(), 2) + "-" + BD.pad(birthDate.getMonth() + 1, 2) + "-" + birthDate.getFullYear();
+  
+  // Toggle password visibility
+  toggleBtn?.addEventListener("click", () => {
+    const isPassword = passwordInput.type === "password";
+    passwordInput.type = isPassword ? "text" : "password";
+    toggleBtn.querySelector(".toggle-icon").textContent = isPassword ? "🙈" : "👁️";
+  });
+  
+  // Format input as user types (DD-MM-YYYY)
+  passwordInput?.addEventListener("input", (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 8) value = value.slice(0, 8);
+    if (value.length >= 2) value = value.slice(0, 2) + "-" + value.slice(2);
+    if (value.length >= 5) value = value.slice(0, 5) + "-" + value.slice(5);
+    e.target.value = value;
+  });
+  
+  // Clear error on input
+  passwordInput?.addEventListener("focus", () => {
+    if (errorEl) errorEl.hidden = true;
+  });
+  
+  function verifyPassword() {
+    const input = (passwordInput.value || "").trim();
+    if (!input) {
+      showError("Please enter a password.");
+      return;
+    }
+    if (input !== correctPassword) {
+      showError("Incorrect password. Try again.");
+      return;
+    }
+    // Success - navigate to celebration
+    if (errorEl) errorEl.hidden = true;
+    passwordInput.value = "";
+    BD.nav.next();
+  }
+  
+  function showError(msg) {
+    if (!errorEl) return;
+    errorEl.textContent = msg;
+    errorEl.hidden = false;
+    passwordInput.focus();
+  }
+  
+  // Submit on button click
+  submitBtn?.addEventListener("click", verifyPassword);
+  
+  // Submit on Enter key
+  passwordInput?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") verifyPassword();
+  });
+  
+  // Reset on screen enter
+  BD.on("screen:enter", (e) => {
+    if (e.detail.name === "password") {
+      passwordInput.value = "";
+      if (errorEl) errorEl.hidden = true;
+      passwordInput.focus();
+    }
+  });
 })();
 
 /* ============ CELEBRATION ============ */

@@ -40,12 +40,12 @@
     <ol id="progressDots"></ol>
   </nav>
 
+  <!-- MAIN APP SCREENS - MODULARIZED COMPONENTS -->
   <main id="app">
-    <!-- 1. LOADING -->
+    <!-- Module: Loading Screen -->
     <section class="screen screen--loading is-active" id="screen-loading" data-screen="loading">
       <div class="loading-stage">
-        <div class="loading-hearts" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span>
-        </div>
+        <div class="loading-hearts" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
         <h1 class="loading-title">Preparing something special<span class="dots"><i>.</i><i>.</i><i>.</i></span></h1>
         <p class="loading-sub">A little universe is being built for <em>Bhavana</em></p>
         <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -54,49 +54,68 @@
       </div>
     </section>
 
-    <!-- 2. LANDING -->
+    <!-- Module: Landing Screen -->
     <section class="screen" id="screen-landing" data-screen="landing" hidden>
       <div class="landing-stage" data-parallax-root>
         <div class="landing-glow" aria-hidden="true"></div>
         <p class="eyebrow" data-parallax="6">A surprise written only for you</p>
-        <h1 class="landing-title" data-parallax="14">Happy Birthday<br /><span class="landing-name">Bhavana</span><span
-            class="landing-heart" aria-hidden="true">❤</span></h1>
+        <h1 class="landing-title" data-parallax="14">Happy Birthday<br /><span class="landing-name">Bhavana</span><span class="landing-heart" aria-hidden="true">❤</span></h1>
         <p class="landing-sub" data-parallax="4">I created something special only for you. Walk with me through it.</p>
-        <button class="btn-luxe" id="btnBeginJourney"><span class="btn-luxe__inner">Begin the Journey</span><span
-            class="btn-luxe__shine" aria-hidden="true"></span></button>
+        <button class="btn-luxe" id="btnBeginJourney"><span class="btn-luxe__inner">Begin the Journey</span><span class="btn-luxe__shine" aria-hidden="true"></span></button>
         <div class="landing-floaters" aria-hidden="true"></div>
       </div>
     </section>
 
-    <!-- 3. COUNTDOWN -->
+    <!-- Module: Countdown Screen -->
     <section class="screen" id="screen-countdown" data-screen="countdown" hidden>
       <div class="countdown-stage">
         <p class="eyebrow">Counting the moments until</p>
         <h2 class="screen-title">Your day arrives</h2>
         <div class="countdown-grid" id="countdownGrid">
-          <div class="cd-cell">
-            <div class="cd-num" data-cd="days">000</div>
-            <div class="cd-label">Days</div>
-          </div>
-          <div class="cd-cell">
-            <div class="cd-num" data-cd="hours">00</div>
-            <div class="cd-label">Hours</div>
-          </div>
-          <div class="cd-cell">
-            <div class="cd-num" data-cd="minutes">00</div>
-            <div class="cd-label">Minutes</div>
-          </div>
-          <div class="cd-cell">
-            <div class="cd-num" data-cd="seconds">00</div>
-            <div class="cd-label">Seconds</div>
-          </div>
+          <div class="cd-cell"><div class="cd-num" data-cd="days">000</div><div class="cd-label">Days</div></div>
+          <div class="cd-cell"><div class="cd-num" data-cd="hours">00</div><div class="cd-label">Hours</div></div>
+          <div class="cd-cell"><div class="cd-num" data-cd="minutes">00</div><div class="cd-label">Minutes</div></div>
+          <div class="cd-cell"><div class="cd-num" data-cd="seconds">00</div><div class="cd-label">Seconds</div></div>
         </div>
         <p class="countdown-meta" id="countdownMeta">02 July 2026 · A day the world celebrates you.</p>
-        <button class="btn-ghost" data-next disabled>Continue the journey →</button>
+        <button class="btn-ghost" id="btnCountdownNext" data-next disabled>Continue the journey →</button>
       </div>
     </section>
 
-    <!-- 4. CELEBRATION -->
+    <!-- Module: Password/Verification Screen -->
+    <section class="screen" id="screen-password" data-screen="password" hidden>
+      <div class="password-stage">
+        <p class="eyebrow">One more step</p>
+        <h2 class="screen-title">Verify your entry</h2>
+        <p class="password-sub">Enter her birthday to continue the journey</p>
+        
+        <div class="password-form">
+          <div class="password-input-group">
+            <input 
+              type="password" 
+              id="passwordInput" 
+              class="password-input" 
+              placeholder="DD-MM-YYYY"
+              maxlength="10"
+              aria-label="Password: Enter birthday in DD-MM-YYYY format"
+            />
+            <button type="button" id="togglePasswordVisibility" class="password-toggle" aria-label="Toggle password visibility">
+              <span class="toggle-icon">👁️</span>
+            </button>
+          </div>
+          
+          <div id="passwordError" class="password-error" hidden></div>
+          
+          <button type="button" id="btnSubmitPassword" class="btn-luxe">
+            <span class="btn-luxe__inner">Enter</span>
+          </button>
+          
+          <p class="password-hint">Hint: DD-MM-YYYY format (e.g., 02-07-2026)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module: Celebration Screen -->
     <section class="screen" id="screen-celebration" data-screen="celebration" hidden>
       <canvas class="fx-canvas" id="celebrationFxCanvas" aria-hidden="true"></canvas>
       <div class="celebration-stage">
@@ -110,7 +129,7 @@
       </div>
     </section>
 
-    <!-- 5. ENVELOPES -->
+    <!-- Module: Envelopes Screen -->
     <section class="screen" id="screen-envelopes" data-screen="envelopes" hidden>
       <div class="section-head">
         <p class="eyebrow">Eight letters · written quietly</p>
@@ -123,7 +142,7 @@
       </div>
     </section>
 
-    <!-- 6. GIFTS -->
+    <!-- Module: Gifts Screen -->
     <section class="screen" id="screen-gifts" data-screen="gifts" hidden>
       <div class="section-head">
         <p class="eyebrow">Six small gifts</p>
@@ -136,7 +155,7 @@
       </div>
     </section>
 
-    <!-- 7. STARS -->
+    <!-- Module: Stars Screen -->
     <section class="screen" id="screen-stars" data-screen="stars" hidden>
       <div class="section-head">
         <p class="eyebrow">A sky of secrets</p>
@@ -151,7 +170,7 @@
       </div>
     </section>
 
-    <!-- 8. REASONS -->
+    <!-- Module: Reasons Screen -->
     <section class="screen" id="screen-reasons" data-screen="reasons" hidden>
       <div class="section-head">
         <p class="eyebrow">15 reasons</p>
@@ -171,7 +190,7 @@
       </div>
     </section>
 
-    <!-- 9. GAME -->
+    <!-- Module: Game Screen -->
     <section class="screen" id="screen-game" data-screen="game" hidden>
       <div class="section-head">
         <p class="eyebrow">A tiny game</p>
@@ -195,15 +214,12 @@
       </div>
     </section>
 
-    <!-- 10. FINAL -->
+    <!-- Module: Final Screen -->
     <section class="screen" id="screen-final" data-screen="final" hidden>
       <canvas class="fx-canvas" id="finalFxCanvas" aria-hidden="true"></canvas>
       <div class="final-stage">
-        <h2 class="screen-title gradient-title final-title">Happy Birthday, Bhavana <span aria-hidden="true">❤</span>
-        </h2>
-        <p class="final-msg" id="finalMessage">May your life always be filled with happiness, success, laughter and
-          endless smiles. Thank you for being such an amazing person. This little universe was built especially for you,
-          with lots of love.</p>
+        <h2 class="screen-title gradient-title final-title">Happy Birthday, Bhavana <span aria-hidden="true">❤</span></h2>
+        <p class="final-msg" id="finalMessage">May your life always be filled with happiness, success, laughter and endless smiles. Thank you for being such an amazing person. This little universe was built especially for you, with lots of love.</p>
         <div class="cake-wrap">
           <div class="cake" id="cake">
             <div class="cake__top"></div>
@@ -217,15 +233,14 @@
               <span class="candle"><span class="flame"></span></span>
             </div>
           </div>
-          <button class="btn-luxe" id="btnBlowCandles"><span class="btn-luxe__inner">🕯️ Blow the
-              candles</span></button>
+          <button class="btn-luxe" id="btnBlowCandles"><span class="btn-luxe__inner">🕯️ Blow the candles</span></button>
         </div>
         <button class="btn-ghost" id="btnRestart">↺ Restart the journey</button>
       </div>
     </section>
   </main>
 
-  <!-- Gallery invite popup (after blowing candles) -->
+  <!-- MODALS MODULE - All popup dialogs -->
   <div class="candle-popup" id="candlePopup" hidden>
     <div class="candle-popup__card" role="dialog" aria-modal="true" aria-labelledby="candlePopupTitle">
       <div class="candle-popup__sparkle" aria-hidden="true">✨</div>
@@ -236,7 +251,6 @@
     </div>
   </div>
 
-  <!-- Full-screen photo gallery modal -->
   <div class="gallery-modal" id="galleryModal" hidden>
     <div class="gallery-modal__inner" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle">
       <button class="gallery-modal__close" id="galleryModalClose" aria-label="Close gallery">×</button>

@@ -1,0 +1,23 @@
+<!-- MODULE: GAME SCREEN -->
+<section class="screen" id="screen-game" data-screen="game" hidden>
+  <div class="section-head">
+    <p class="eyebrow">A tiny game</p>
+    <h2 class="screen-title">Catch the hearts</h2>
+    <p class="screen-sub">Catch <strong>25 hearts</strong> in 45 seconds to unlock the final surprise.</p>
+  </div>
+  <div class="game-hud">
+    <div class="hud-cell"><span class="hud-label">Score</span><span class="hud-val" id="gameScore">0</span></div>
+    <div class="hud-cell"><span class="hud-label">Lives</span><span class="hud-val" id="gameLives">3</span></div>
+    <div class="hud-cell"><span class="hud-label">Time</span><span class="hud-val" id="gameTime">45</span></div>
+  </div>
+  <div class="game-stage" id="gameStage">
+    <div class="game-overlay" id="gameOverlay">
+      <h3 id="gameOverlayTitle">Are you ready?</h3>
+      <p id="gameOverlayText">Catch the falling hearts. Miss too many and lose a life.</p>
+      <button class="btn-luxe" id="btnGameStart"><span class="btn-luxe__inner">Start</span></button>
+    </div>
+  </div>
+  <div class="section-foot">
+    <button class="btn-ghost" id="btnGameNext" data-next disabled>Final surprise →</button>
+  </div>
+</section>
