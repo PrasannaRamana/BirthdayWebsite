@@ -344,10 +344,11 @@ BD.nav = (function () {
   const meta = document.getElementById("countdownMeta");
   const nextBtn = document.getElementById("btnCountdownNext");
   const dayDate = new Date(cfg.birthday).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+  let timer = null;
   if (meta) meta.textContent = `${dayDate} · A day the world celebrates you.`;
-  function update() { const now = Date.now(); let diff = target - now; if (diff <= 0) { BD.qsa("[data-cd]", screen).forEach((el) => (el.textContent = "00")); if (nextBtn) nextBtn.disabled = false; if (cfg.forceCelebrationIfPassed) { clearInterval(timer); if (BD.nav.current() === "countdown") BD.nav.goTo("celebration"); } return; } const days = Math.floor(diff / 86400000); diff -= days * 86400000; const hours = Math.floor(diff / 3600000); diff -= hours * 3600000; const minutes = Math.floor(diff / 60000); diff -= minutes * 60000; const seconds = Math.floor(diff / 1000); setCell("days", days); setCell("hours", hours); setCell("minutes", minutes); setCell("seconds", seconds); }
+  function update() { const now = Date.now(); let diff = target - now; if (diff <= 0) { BD.qsa("[data-cd]", screen).forEach((el) => (el.textContent = "00")); if (nextBtn) nextBtn.disabled = false; if (cfg.forceCelebrationIfPassed) { if (timer) clearInterval(timer); if (BD.nav.current() === "countdown") BD.nav.goTo("celebration"); } return; } const days = Math.floor(diff / 86400000); diff -= days * 86400000; const hours = Math.floor(diff / 3600000); diff -= hours * 3600000; const minutes = Math.floor(diff / 60000); diff -= minutes * 60000; const seconds = Math.floor(diff / 1000); setCell("days", days); setCell("hours", hours); setCell("minutes", minutes); setCell("seconds", seconds); }
   function setCell(key, val) { const el = screen.querySelector(`[data-cd="${key}"]`); if (el) el.textContent = BD.pad(val, key === "days" ? 3 : 2); }
-  update(); const timer = setInterval(update, 1000);
+  update(); timer = setInterval(update, 1000);
 })();
 
 /* ============ PASSWORD VERIFICATION ============ */
